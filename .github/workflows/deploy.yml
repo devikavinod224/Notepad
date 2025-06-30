@@ -2,7 +2,7 @@ name: Build & Deploy Flutter Web to GitHub Pages
 
 on:
   push:
-    branches: [ main ]   # change if your default branch is something else
+    branches: [ main ]
 
 jobs:
   deploy:
@@ -11,16 +11,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Install Flutter
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
 
-      # Get packages & build
       - run: flutter pub get
-      - run: flutter build web --release --base-href /${{ github.event.repository.name }}/
+      - run: flutter build web --release --base-href /notes_web/
 
-      # Deploy to gh-pages
       - uses: peaceiris/actions-gh-pages@v3
         with:
           publish_dir: build/web
